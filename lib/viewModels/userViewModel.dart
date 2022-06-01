@@ -39,23 +39,23 @@ class UserViewModel {
   }
 
   Future<void> login(dynamic context, String email, String password) async {
-    // WebServices webServices = WebServices();
-    // _loading = true;
-    // notify_observers("login");
+    WebServices webServices = WebServices();
+    _loading = true;
+    notify_observers("login");
 
-    // try {
-    //   User result = await webServices.login(email, password);
-    //   _user = result;
-    //   _loading = false;
-    //   notify_observers("login success");
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => homePage(_user)));
-    // } catch (e) {
-    //   _loading = false;
-    // }
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => homePage(User("name", "surname", "email"))));
+    try {
+      User result = await webServices.login(email, password);
+      _user = result;
+      _loading = false;
+      notify_observers("login success");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => homePage(_user)));
+    } catch (e) {
+      _loading = false;
+    }
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => homePage(User("name", "surname", "email"))));
   }
 }

@@ -37,28 +37,29 @@ class rdvListViewModel with ChangeNotifier {
     return _rdv;
   }
 
-  void loadListRDV(dynamic context) async {
+  void loadListRDV(dynamic context, int? id) async {
     WebServices webServices = WebServices();
     _loading = true;
     try {
-      // List<RDV> result = await webServices.getAllRDVs();
-      // _rdv = result;
-      // _loading = false;
+      List<RDV>? result = await webServices.getAllRDVs(id);
+      _rdv = result;
+      _loading = false;
+      notify_observers("list rdv loading success");
 
-      List<RDV> scheduless = [
-        RDV(1, "nomMedecin", "date", "dentiste"),
-        RDV(3, "nomMedecin2", "date2", "ldjazk")
-      ];
+      // List<RDV> scheduless = [
+      //   RDV(1, "nomMedecin", "date", "dentiste"),
+      //   RDV(3, "nomMedecin2", "date2", "ldjazk")
+      // ];
 
-      log("waiting for 5 seconds begin");
-      Timer(
-          Duration(seconds: 10),
-          () => {
-                _rdv = scheduless,
-                _loading = false,
-                notify_observers("list rdv loading success"),
-                log("waiting for 5 seconds done")
-              });
+      // log("waiting for 5 seconds begin");
+      // Timer(
+      //     Duration(seconds: 10),
+      //     () => {
+      //           _rdv = scheduless,
+      //           _loading = false,
+      //           notify_observers("list rdv loading success"),
+      //           log("waiting for 5 seconds done")
+      //         });
     } catch (e) {
       _loading = false;
     }

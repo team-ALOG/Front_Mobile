@@ -9,8 +9,8 @@ class User {
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
-    surname = json['surname'];
+    name = json['nom'];
+    surname = json['prenom'];
     email = json['email'];
     address = json['address'];
   }

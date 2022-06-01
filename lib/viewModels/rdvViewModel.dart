@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../models/observer.dart';
 import '../models/rdv.dart';
+import '../services/webServices.dart';
 
 class rdvViewModel {
   RDV? _rdv;
-  bool _loading = true;
+  bool _loading = false;
   rdvViewModel({RDV? rdv}) : _rdv = rdv;
 
   List<Observer>? _observers;
@@ -32,21 +33,33 @@ class rdvViewModel {
     return _loading;
   }
 
-  Future<void> autoriser(dynamic context) async {
-    // WebServices webServices = WebServices();
-    // _loading = true;
-    // notify_observers("autorisation d acces");
+  Future<void> autoriser(dynamic context, int? id) async {
+    WebServices webServices = WebServices();
+    _loading = true;
+    notify_observers("autorisation d acces");
 
-    // try {
-    //   await webServices.autoriser();
-    //
-    // } catch (e) {
-    //   _loading = false;
-    // }
-    log("message hii");
+    try {
+      bool result = await webServices.autoriser(id);
+      _loading = !result;
+      notify_observers("autorisation d acces success");
+    } catch (e) {
+      _loading = false;
+    }
+    //log("message hii");
+  }
+
+  Future<void> refuser(dynamic context, int? id) async {
+    WebServices webServices = WebServices();
+    _loading = true;
+    notify_observers("refus d acces");
+
+    try {
+      bool result = await webServices.refuser(id);
+      _loading = !result;
+      notify_observers("fin cosultation");
+    } catch (e) {
+      _loading = false;
+    }
+    //log("message hii");
   }
 }
-
-//TODO: webServices 
-//TODO: passage from list to detail
-
